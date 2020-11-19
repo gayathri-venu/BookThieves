@@ -99,7 +99,7 @@ def index():
     user_id = session['user']
     username = User.query.get(session['user']).username
     showReview = Review.query.order_by(desc(Review.id))
-    request = Request.query.filter_by(to_id=user_id).filter_by(status='Pending').all()
+    request = Request.query.filter_by(to_id=user_id, status='Pending').all()
     return render_template('index.html', showReview=showReview, request=request)
 
 ######################################### MAIN ####################################
