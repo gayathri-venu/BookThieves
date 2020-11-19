@@ -1,4 +1,3 @@
-import time
 from flask import Flask, render_template,request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
@@ -74,7 +73,7 @@ def login():
 def register():
     if request.method == 'POST':
         new_user = User(username=request.form['username'],
-                        email=request.form['email']
+                        email=request.form['email'],
                         password=request.form['password'], about=request.form['about'],
                         genres=request.form['genres'], image=request.form['image'],
                         )
