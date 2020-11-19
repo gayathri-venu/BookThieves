@@ -72,12 +72,17 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        getGenresArray=request.form.getlist('genres')
+        g=''
+        for eachGenre in getGenresArray:
+            g += "      "
+            g += eachGenre
+            g += "   |   "
         new_user = User(username=request.form['username'],
                         email=request.form['email'],
                         password=request.form['password'], about=request.form['about'],
-                        genres=request.form['genres'], image=request.form['image'],
+                        genres=g, image=request.form['image'],
                         )
-
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('login'))
