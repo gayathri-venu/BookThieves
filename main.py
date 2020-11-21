@@ -24,6 +24,7 @@ class Book(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(50))
     author = db.Column(db.String(50))
+    cover_image = db.Column(db.String(50))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     possessor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
