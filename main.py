@@ -31,10 +31,12 @@ class Book(db.Model):
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     review = db.Column(db.String(200))
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
+    book_name = db.Column(db.String(50))
     likes = db.Column(db.Integer, default= 0)
     genres = db.Column(db.String(50))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    author_name = db.Column(db.String(50))
+    author_image = db.Column(db.String(50))
 
 class Request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
