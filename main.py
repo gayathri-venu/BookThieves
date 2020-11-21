@@ -102,6 +102,27 @@ def index():
     request = Request.query.filter_by(to_id=user_id, status='Pending').all()
     return render_template('index.html', showReview=showReview, request=request)
 
+@app.route('/AddReview', methods=['GET', 'POST'])
+def AddReview():
+    if request.method == 'POST':
+        user_id = session['user']
+        getGenresArray=request.form.getlist('genres')
+        g=''
+        for eachGenre in getGenreArray:
+            g += "      "
+            g += eachGenre
+            g += "   |   "
+        
+        new_review = Review(review=request.form['review'],book_name=request.form['bookname'], 
+                                genres=g, author_id=user_id,
+                                author_name=User.query.get(user_id).username,
+                                author_img=User.query.get(user_id).image)
+        db.session.add(new_review)
+        db.session.commit()
+        return redirect(url_for('index'))
+
+    else:
+        return render_template('addReview.html')
 ######################################### MAIN ####################################
 
 
