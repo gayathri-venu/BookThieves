@@ -126,6 +126,20 @@ def AddReview():
 
     else:
         return render_template('addReview.html')
+    
+@app.route('/AddBook', methods=['GET', 'POST'])
+def AddBook():
+    if request.method == 'POST':
+        user_id = session['user']
+        new_book = Book(name=request.form['bookname'],author=request.form['authorname'],
+                        cover_image=request.form['coverimage'], owner_id=user_id,
+                        possessor_id=user_id)
+        db.session.add(new_book)
+        db.session.commit()
+        return redirect(url_for('index'))
+
+    else:
+        return render_template('addBook.html')
 ######################################### MAIN ####################################
 
 
