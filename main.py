@@ -111,7 +111,7 @@ def AddReview():
         user_id = session['user']
         getGenresArray=request.form.getlist('genres')
         g=''
-        for eachGenre in getGenreArray:
+        for eachGenre in getGenresArray:
             g += "      "
             g += eachGenre
             g += "   |   "
@@ -119,7 +119,7 @@ def AddReview():
         new_review = Review(review=request.form['review'],book_name=request.form['bookname'], 
                                 genres=g, author_id=user_id,
                                 author_name=User.query.get(user_id).username,
-                                author_img=User.query.get(user_id).image)
+                                author_image=User.query.get(user_id).image)
         db.session.add(new_review)
         db.session.commit()
         return redirect(url_for('index'))
@@ -140,6 +140,20 @@ def AddBook():
 
     else:
         return render_template('addBook.html')
+
+@app.route('/profile', methods=['GET'])
+def profile():
+     user_id = session['user']
+     username = User.query.get(user_id).username
+     image = User.query.get(user_id).image
+     
+     return render_template('profile.html', username = username , image = image)
+
+# @app.route('/request', methods=['GET'])
+# def readers():                                            Add Request route that shows the readers names
+#     user_id = session['user']
+    
+
 ######################################### MAIN ####################################
 
 

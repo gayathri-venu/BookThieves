@@ -1,1 +1,9 @@
+{% extends "layout.html"%}
+{% block content%}
 
+{% for Review in showReview %}
+   <ul>{{Review}}</ul>
+   <a href="/request.html">Request</a>
+{% endfor %}
+
+{% endblock%}
