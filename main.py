@@ -22,9 +22,9 @@ class User(db.Model):
 
 class Book(db.Model):
     id = db.Column(db.Integer,primary_key=True)
-    name = db.Column(db.String(50))
+    title = db.Column(db.String(50))
     author = db.Column(db.String(50))
-    cover_image = db.Column(db.String(50))
+    cover = db.Column(db.String(50))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     possessor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -33,17 +33,19 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     review = db.Column(db.String(200))
     book_name = db.Column(db.String(50))
-    likes = db.Column(db.Integer, default= 0)
     genres = db.Column(db.String(50))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     author_name = db.Column(db.String(50))
     author_image = db.Column(db.String(50))
 
+
 class Request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     from_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    frome_name = db.Column(db.String(50))
     to_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
+    book_name = db.Column(db.String(50))
     status = db.Column(db.Integer, default='Pending')
     
     
@@ -86,6 +88,7 @@ def register():
                         password=request.form['password'], about=request.form['about'],
                         genres=g, image=request.form['image'],
                         )
+
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('login'))
@@ -101,9 +104,9 @@ def logout():
 def index():
     user_id = session['user']
     username = User.query.get(session['user']).username
-    showReview = Review.query.order_by(desc(Review.id))
-    request = Request.query.filter_by(to_id=user_id, status='Pending').all()
-    return render_template('index.html', showReview=showReview, request=request)
+    showReview = Review.query.order_by(desc(Review.id)).filter_by(author_id != user_id).all
+    requests = Request.query.filter_by(to_id=user_id, status='Pending').all()
+    return render_template('index.html', showReview=showReview, requests=requests)
 
 @app.route('/AddReview', methods=['GET', 'POST'])
 def AddReview():
@@ -126,13 +129,14 @@ def AddReview():
 
     else:
         return render_template('addReview.html')
-    
+
+
 @app.route('/AddBook', methods=['GET', 'POST'])
 def AddBook():
     if request.method == 'POST':
         user_id = session['user']
-        new_book = Book(name=request.form['bookname'],author=request.form['authorname'],
-                        cover_image=request.form['coverimage'], owner_id=user_id,
+        new_book = Book(title=request.form['bookname'],author=request.form['authorname'],
+                        cover=request.form['coverimage'], owner_id=user_id,
                         possessor_id=user_id)
         db.session.add(new_book)
         db.session.commit()
@@ -140,6 +144,19 @@ def AddBook():
 
     else:
         return render_template('addBook.html')
+
+@app.route('/profile')
+def profile():
+    userid = session['user']
+    Profile = User.query.filter_by(id=userid).one()
+    return render_template('profile.html', i=Profile)
+
+#@app.route('/PossibleExchange')
+#book = request.args
+#suggestions = Book.query.filter_by(title = book).all()
+
+
+
 ######################################### MAIN ####################################
 
 
