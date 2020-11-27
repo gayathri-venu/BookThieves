@@ -122,7 +122,7 @@ def AddReview():
         new_review = Review(review=request.form['review'],book_name=request.form['bookname'], 
                                 genres=g, author_id=user_id,
                                 author_name=User.query.get(user_id).username,
-                                author_img=User.query.get(user_id).image)
+                                author_image=User.query.get(user_id).image)
         db.session.add(new_review)
         db.session.commit()
         return redirect(url_for('index'))
@@ -148,8 +148,8 @@ def AddBook():
 @app.route('/profile')
 def profile():
     userid = session['user']
-    Profile = User.query.filter_by(id=userid).one()
-    return render_template('profile.html', i=Profile)
+    me = User.query.filter_by(id=userid).one()
+    return render_template('profile.html', i=me)
 
 #@app.route('/PossibleExchange')
 #book = request.args
