@@ -1,9 +1,92 @@
 {% extends "layout.html"%}
 {% block content%}
 
-{% for Review in showReview %}
-   <ul>{{Review}}</ul>
-   <a href="/request.html">Request</a>
-{% endfor %}
+<body style="margin:0;padding:0;">
+    <div class="row">
+    
+        
+    
+        <div class="col-5" style="margin-right:3%">
+    
+    
+            <div class="homeDiv">
+                {% for i in showReview %}
+                <div class="row"
+                     style="box-shadow: 0 8px 16px rgba(0, 0, 0, .1); background:#fff; padding:2%; border-radius:1%">
+                    <div class="col-12">
+                        <div class="media m-1">
+                            <div class="d-flex mr-3">
+                                <a href="/profile"><img class="img rounded-circle"
+                                                        src="{{i.author_image}}"
+                                                        alt="User" width="68" height="68"></a>
+                            </div>
+                            <div class="media-body">
+                                <p style="margin:7px 0;font-size:15px">{{i.author_name}}
+                                </p>
+    
+                                <hr>
+    
+    
+                            </div>
+    
+    
+                        </div>
+    
+                        <b style=" font-size:19px" class="text-color">{{ i.book_name }}</b>
+                        <span class="badge badge-pill" style="background-color:#e9ecef;font-size:11px">{{i.genres}}</span>
+                        <br>
+                        <span style="color:#495057;font-size:16px"> {{i.review }}</span>
+                        <br><br>
+    
+                        
+    
+    
+                        <button type="submit" class="btn btn-dark " value="{{ i.id }}"
+                                style="color:white !important;float:right">
+                            <a href="{{ url_for('PossibleExchange', book=i.book_name) }}" style="color:white">
+                                Read </a>
+                        </button>
+                        <br><br>
+                    </div>
+    
+    
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-3 "
+             style="margin-left:1%;box-shadow: 0 8px 16px rgba(0, 0, 0, .1); background:#fcfcfc; padding:2%; border-radius:1%">
+            <div>
+    
+                <h4>Incoming Requests</h4><br>
+               
+                {% if request %}
+                <ul>
+                    {% for i in request %}
+    
+                    
+                   
+                    <li><b>{{i.from_name}} has requested for {{i.book_name }}</b></li>
+                    <button type="submit" class="btn  btn-light">
+                        <a href="{{ url_for('Bookshelf', user=i.from_id) }}"
+                        >Interested</a></button>
+                    <br><br><br><br>
+                    
+                    {% endfor %}
+                </ul>
+    
+                {% endif%}
+            </div>
+    
+        </div>
+    
+    
+    </div>
+    
+    
+    </body>
+    
+
 
 {% endblock%}
