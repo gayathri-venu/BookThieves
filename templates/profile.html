@@ -24,7 +24,7 @@
             <div class="row" style="background:white">
                 <div class="py-4 px-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h3 class="mb-0">About</h3>
+                        <h5 class="mb-0">About</h5>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 mb-2" style="padding:2%">
@@ -37,7 +37,7 @@
 
                 <div class="py-4 px-4">
 
-                    <div class="row">
+                    
 
                         <div class="col-lg-5 mb-2 pr-lg-1" style="padding:2%; margin-left:2%">
                             <div class="d-flex align-items-center justify-content-between mb-3">
@@ -52,9 +52,9 @@
                             <br> <br>
                             
                         </div>
-                        <div class="col-lg-1"></div>
                         
-                    </div>
+                        
+                   
 
 
                     <br>
@@ -68,6 +68,46 @@
 
 
                 </div>
+                {% if bookShelf %}
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Bookshelf</h5>
+                </div>
+                
+                <div class="row row-cols-1 row-cols-md-3">
+                    {% for i in bookShelf %}
+                    <div class="col mb-4">
+                      <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">{{i.title}}</h5>
+                          <p class="card-text">{{i.author}}</p>
+
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif%}
+                {% if nowReading %}
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Now Reading</h5>
+                </div>
+                
+                <div class="row row-cols-1 row-cols-md-3">
+                    {% for i in nowReading  %}
+                    <div class="col mb-4">
+                      <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">{{i.title}}</h5>
+                          <p class="card-text">{{i.author}}</p>
+
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif%}
             </div>
 
 
