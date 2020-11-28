@@ -147,9 +147,11 @@ def AddBook():
 
 @app.route('/profile')
 def profile():
-    userid = session['user']
-    Profile = User.query.filter_by(id=userid).one()
-    return render_template('profile.html', i=Profile)
+    user_id = session['user']
+    me = User.query.filter_by(id=user_id).one()
+    bookShelf = Book.query.filter_by(owner_id = user_id,possessor_id = user_id).all()
+    nowReading = Book.query.filterfilter_by(possessor_id = user_id).all()
+    return render_template('profile.html', i=me, bookShelf = bookShelf, nowReading = nowReading)
 
 #@app.route('/PossibleExchange')
 #book = request.args
