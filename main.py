@@ -150,7 +150,7 @@ def profile():
     user_id = session['user']
     me = User.query.filter_by(id=user_id).one()
     bookShelf = Book.query.filter_by(owner_id = user_id,possessor_id = user_id).all()
-    nowReading = Book.query.filter_by(possessor_id = user_id).all()
+    nowReading = Book.query.filter(Book.possessor_id == user_id, Book.owner_id != user_id).all()
     return render_template('profile.html', i=me, bookShelf = bookShelf, nowReading = nowReading)
 
 
