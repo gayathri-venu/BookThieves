@@ -92,7 +92,7 @@ def AddReview():
         user_id = session['user']
         getGenresArray=request.form.getlist('genres')
         g=''
-        for eachGenre in getGenreArray:
+        for eachGenre in getGenresArray:
             g += "      "
             g += eachGenre
             g += "   |   "
