@@ -7,7 +7,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'the random string'
 db = SQLAlchemy(app)
-
 #######################MODELS ###############################
 
 class User(db.Model):
@@ -18,7 +17,6 @@ class User(db.Model):
     about = db.Column(db.String(50))
     genres = db.Column(db.String(50))
     image = db.Column(db.String(50))
-
 
 class Book(db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -37,19 +35,6 @@ class Review(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     author_name = db.Column(db.String(50))
     author_image = db.Column(db.String(50))
-
-
-class Request(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    from_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    frome_name = db.Column(db.String(50))
-    to_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
-    book_name = db.Column(db.String(50))
-    status = db.Column(db.Integer, default='Pending')
-    
-    
-
 
 
 ##########################ROUTES################################
@@ -95,18 +80,11 @@ def register():
     return render_template('register.html')
 
 
+
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
-
-@app.route('/index')
-def index():
-    user_id = session['user']
-    username = User.query.get(session['user']).username
-    showReview = Review.query.order_by(desc(Review.id)).filter_by(author_id != user_id).all
-    requests = Request.query.filter_by(to_id=user_id, status='Pending').all()
-    return render_template('index.html', showReview=showReview, requests=requests)
 
 @app.route('/AddReview', methods=['GET', 'POST'])
 def AddReview():
@@ -114,7 +92,7 @@ def AddReview():
         user_id = session['user']
         getGenresArray=request.form.getlist('genres')
         g=''
-        for eachGenre in getGenreArray:
+        for eachGenre in getGenresArray:
             g += "      "
             g += eachGenre
             g += "   |   "
@@ -153,13 +131,13 @@ def profile():
     nowReading = Book.query.filter(Book.possessor_id == user_id, Book.owner_id != user_id).all()
     return render_template('profile.html', i=me, bookShelf = bookShelf, nowReading = nowReading)
 
-
-#@app.route('/PossibleExchange')
-#book = request.args
-#suggestions = Book.query.filter_by(title = book).all()
-
-
-
+@app.route('/index')
+def index():
+    user_id = session['user']
+    username = User.query.get(session['user']).username
+    #showReview = Review.query.order_by(desc(Review.id))
+    #request = Request.query.filter_by(to_id=user_id, status='Pending').all()
+    return render_template('index.html')
 ######################################### MAIN ####################################
 
 
