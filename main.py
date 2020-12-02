@@ -138,6 +138,16 @@ def index():
     showReview = Review.query.order_by(desc(Review.id))
     #request = Request.query.filter_by(to_id=user_id, status='Pending').all()
     return render_template('index.html', showReview = showReview)
+
+@app.route('/suggestions')
+def suggestions():
+
+    name = request.args['bookname']
+    matches = Book.query.filter(Book.title == name, Book.owner_id == Book.possessor_id).all()
+    matchList = []
+    for book in matches:
+        matchList.append(User.query.get(book.owner_id))
+    return render_template('suggestions.html', matchList = matchList)
 ######################################### MAIN ####################################
 
 
