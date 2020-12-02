@@ -42,7 +42,7 @@
     
                         <button type="submit" class="btn btn-dark " value="{{ i.id }}"
                                 style="color:white !important;float:right">
-                            <a href="" style="color:white">
+                            <a href="{{ url_for('suggestions', bookname = i.book_name)}}" style="color:white">
                                 Read </a>
                         </button>
                         <br><br>
