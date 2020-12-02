@@ -1,0 +1,63 @@
+{% extends "layout.html"%}
+{% block content%}
+<body style="margin:0;padding:0;">
+    <div class="row">
+    
+        
+    
+        <div class="col-5" style="margin-right:3%">
+    
+    
+            <div class="homeDiv">
+                {% for i in matchList %}
+                <div class="row"
+                     style="box-shadow: 0 8px 16px rgba(0, 0, 0, .1); background:#fff; padding:2%; border-radius:1%">
+                    <div class="col-12">
+                        <div class="media m-1">
+                            <div class="d-flex mr-3">
+                                <a href="/profile"><img class="img rounded-circle"
+                                                        src="{{i.image}}"
+                                                        alt="User" width="68" height="68"></a>
+                            </div>
+                            <div class="media-body">
+                                <p style="margin:7px 0;font-size:15px">{{i.username}}
+                                </p>
+    
+                                <hr>
+    
+    
+                            </div>
+    
+    
+                        </div>
+    
+                        
+    
+                        
+    
+    
+                        <button type="submit" class="btn btn-dark " 
+                                style="color:white !important;float:right">
+                            <a href="" style="color:white">
+                                Request</a>
+                        </button>
+                        <br><br>
+                    </div>
+    
+    
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+        
+    
+    
+    </div>
+    
+    
+    </body>
+    
+
+
+{% endblock%}
