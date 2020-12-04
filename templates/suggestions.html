@@ -15,7 +15,7 @@
                     <div class="col-12">
                         <div class="media m-1">
                             <div class="d-flex mr-3">
-                                <a href="/profile"><img class="img rounded-circle"
+                                <a href="{{ url_for('profile', id = i.id)}}"><img class="img rounded-circle"
                                                         src="{{i.image}}"
                                                         alt="User" width="68" height="68"></a>
                             </div>
@@ -23,7 +23,8 @@
                                 <p style="margin:7px 0;font-size:15px">{{i.username}}
                                 </p>
     
-                                <hr>
+                                <br>
+                                <span class="badge badge-pill" style="background-color:#e9ecef;font-size:11px">{{i.genres}}</span>
     
     
                             </div>
@@ -38,7 +39,7 @@
     
                         <button type="submit" class="btn btn-dark " 
                                 style="color:white !important;float:right">
-                            <a href="" style="color:white">
+                            <a href="{{ url_for('requested', id= i.id, book_name = bookName)}}" style="color:white">
                                 Request</a>
                         </button>
                         <br><br>
