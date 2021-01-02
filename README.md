@@ -1,7 +1,7 @@
 # BookThieves
 
 
-Social networking site for book exchange and reviewing.
+ Web app for book exchange and reviewing.
 
 
 # Installation
