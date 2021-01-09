@@ -1,19 +1,19 @@
 {% extends "layout.html"%} {% block content%}
 
-
+<!--
 <div class="row">
     <div class="col-8 mx-auto">
 
-        <!-- Profile widget -->
+        
 
         <div class=" shadow rounded overflow-hidden">
             <div class="px-4 pt-0 bg-dark ">
                 <div class="media align-items-end profile-header">
-                    <img class=" rounded-circle" src="{{i.image}}" style="width:200px; height:200px">
-                    <div class="media-body text-white" style="transform:translateY(-30%); size: 100px 100px;">
+                    <img class=" rounded-circle" src="{{j.image}}" style="width:200px; height:200px">
+                    <div class="media-body text-white" style="transform:translateY(-30%)">
 
-                        <center><div class=" ml-10" style="text-shadow: 2px 1px 1px #7d7d7d; margin: auto; text-align: center;"> {{ i.username }}</div></center> 
-                       
+                        <h1 class=" ml-10" style="text-shadow: 2px 1px 1px #7d7d7d;"> {{ j.username }}</h1>
+                        &nbsp;&nbsp; <p class="small mb-4"> {{j.email}}</p>
 
                     </div>
                 </div>
@@ -21,14 +21,14 @@
 
             
             <br>
-            <div style="background:white">
+            <div class="row" style="background:white">
                 <div class="py-4 px-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="mb-0">About</h5>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 mb-2" style="padding:2%">
-                        {{i.about}}
+                        {{j.about}}
                             
                         </div>
                     </div>
@@ -41,11 +41,15 @@
 
                         <div class="col-lg-5 mb-2 pr-lg-1" style="padding:2%; margin-left:2%">
                             <div class="d-flex align-items-center justify-content-between mb-3">
-                                <h5 class="mb-0">Interests</h5>
+                                <h5 class="mb-0 text-center">Interests</h5>
                             </div>
-                            <span class="badge badge-pill" style="background-color:#e9ecef;font-size:20px">{{i.genres}}</span>
+                            <span class="badge badge-pill" style="background-color:#e9ecef;font-size:11px">{{j.genres}}</span>
                              
-                           
+                            <br><br>
+                            
+
+                            <br> <br>
+                            <br> <br>
                             
                         </div>
                         
@@ -53,7 +57,10 @@
                    
 
 
-                   
+                    <br>
+
+
+                    <br><br>
 
 
                     
@@ -61,6 +68,7 @@
 
 
                 </div>
+                {% if isSamePerson == 'True' %}
                 {% if bookShelf %}
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="mb-0">Bookshelf</h5>
@@ -81,6 +89,8 @@
                     {% endfor %}
                 </div>
                 {% endif%}
+        
+
                 {% if nowReading %}
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="mb-0">Now Reading</h5>
@@ -94,20 +104,223 @@
                         <div class="card-body">
                           <h5 class="card-title">{{i.title}}</h5>
                           <p class="card-text">{{i.author}}</p>
-
+                          <a href="{{ url_for('returnBook', book_id = i.id)}}" class="btn btn-primary">Return</a>
                         </div>
                       </div>
                     </div>
                     {% endfor %}
                 </div>
                 {% endif%}
+                {% endif%}
+                {% if isSamePerson == 'False' %}
+                {% if bookShelf %}
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Bookshelf</h5>
+                </div>
+                
+                <div class="row row-cols-1 row-cols-md-3">
+                    {% for i in bookShelf %}
+                    <div class="col mb-4">
+                      <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">{{i.title}}</h5>
+                          <p class="card-text">{{i.author}}</p>
+                          <a href="{{ url_for('requested', id= j.id, book_name = i.title)}}" class="btn btn-primary">Request</a>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif%}
+        
+
+                {% if nowReading %}
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Now Reading</h5>
+                </div>
+                
+                <div class="row row-cols-1 row-cols-md-3">
+                    {% for i in nowReading  %}
+                    <div class="col mb-4">
+                      <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">{{i.title}}</h5>
+                          <p class="card-text">{{i.author}}</p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif%}
+                {% endif%}
+                
             </div>
 
 
         </div>
 
     </div>
-</div>
+</div>-->
+<div class="row">
+  <div class="col-8 mx-auto">
 
+      <!-- Profile widget -->
+    
+      <div class=" shadow rounded overflow-hidden">
+          <div class="px-4 pt-0 pb-4 bg-dark " style="height:200px;">
+              <div class="media">
+                
+                  <div class="profile mr-3"><img class=" rounded-circle" src="{{j.image}}" style="width:130px; height:130px; margin-top:120px"><!--<img 
+                                                 style="margin-top:120px;"class="rounded mb-2 img-thumbnail" src="{{j.image}}" alt="..." width="130" >--> </div>
+                
+                  <div class="media-body mb-0 text-white"style="margin-top:130px;">
+                      <h4 class="mt-0 mb-0" >{{ j.username }}</h4>
+                      <p class="small mb-9 ">{{j.email}}</p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="bg-light p-4 d-flex justify-content-end text-center">
+              
+          </div>
+<br>
+          
+        <div class="py-4 px-4">
+              <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h5 class="mb-0">About</h5>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12 mb-2 pr-lg-1">
+                    {{j.about}}
+              </div>
+</div>
+              </div>
+              <br.>
+              <br>
+
+              <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Interests</h5>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 mb-2 pr-lg-1">
+                      <span class="badge badge-pill" style="background-color:#e9ecef;font-size:11px">{{j.genres}}</span>
+                </div>
+  </div>
+                </div>
+                <br>
+                <br>
+                {% if isSamePerson == 'True' %}
+                {% if bookShelf %}
+                <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h5 class="mb-0">Bookshelf</h5>
+                </div>
+
+                <div class="row">
+                  {% for i in bookShelf %}
+                  <div class="container col-lg-4 col-sm-6">
+                      <div class="card" style="width: 18rem;">
+                                  
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{i.title}}</h5>
+                                    <p class="card-text">{{i.author}}</p>
+                                    
+                                  </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+                </div>
+
+              </div>
+              {% endif %}
+              <br>
+              <br>
+              {% if nowReading %}
+                <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h5 class="mb-0">Now Reading</h5>
+                </div>
+
+                <div class="row">
+                  {% for i in nowReading %}
+                  <div class="container col-lg-4 col-sm-6">
+                      <div class="card" style="width: 18rem;">
+                                  
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{i.title}}</h5>
+                                    <p class="card-text">{{i.author}}</p>
+                                    <a href="{{ url_for('returnBook', book_id = i.id)}}" class="btn btn-dark" style="color:white">Return</a>
+                                  </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+                </div>
+                <br>
+                <br>
+              </div>
+              {% endif %}
+              {% endif %}
+              {% if isSamePerson == 'False' %}
+                {% if bookShelf %}
+                <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h5 class="mb-0">Bookshelf</h5>
+                </div>
+
+                <div class="row">
+                  {% for i in bookShelf %}
+                  <div class="container col-lg-4 col-sm-6">
+                      <div class="card" style="width: 18rem;">
+                                  
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{i.title}}</h5>
+                                    <p class="card-text">{{i.author}}</p>
+                                    <a href="{{ url_for('requested', id= j.id, book_name = i.title)}}" class="btn btn-dark" style="color:white">Request</a>
+                                  </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+                </div>
+
+              </div>
+              {% endif %}
+              <br>
+              <br>
+              {% if nowReading %}
+                <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <h5 class="mb-0">Now Reading</h5>
+                </div>
+
+                <div class="row">
+                  {% for i in nowReading %}
+                  <div class="container col-lg-4 col-sm-6">
+                      <div class="card" style="width: 18rem;">
+                                  
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{i.title}}</h5>
+                                    <p class="card-text">{{i.author}}</p>
+                                    
+                                  </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+                </div>
+
+              </div>
+              <br>
+              <br>
+              {% endif %}
+              {% endif %}
+     
+              </div>
+                    </div>
+<br>
+                    <br>
+                   
 
 {% endblock%}
