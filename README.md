@@ -1,7 +1,7 @@
 # BookThieves
 
 
- Web app for book exchange and reviewing.
+ Web app for book exchange and reviewing.[Project Report](https://docs.google.com/document/d/1T4WCYEWISYQjbR0i_J3c6fc4yFabrG_26JjDYRGWbfw/edit?usp=sharing)
 
 
 # Installation
